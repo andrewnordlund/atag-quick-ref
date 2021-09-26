@@ -1,0 +1,87 @@
+
+fieldset {
+  border: none;
+}
+legend {
+	font-weight:bold;
+}
+header {
+
+	width: 100%;
+}
+main {
+	display: grid;
+	grid-template-areas: 
+		"filters"
+		"content";
+  width: 100%;
+}
+#filters {
+	grid-area: filters;
+}
+#contSection {
+	grid-area: content;
+	width: 100%;
+}
+h2, h3, h4, h5, h6 {
+	font-size: larger;
+	margin: 0.5em auto;
+}
+ol {
+	margin: 0 auto 0.75em auto;
+}
+p {
+	margin-bottom: 0.3em;
+}
+.linkUL li {
+	margin-bottom: 0.5em;
+	list-style:none;
+}
+.infoLink, .implementingLink {
+}
+.hide {
+	display: none;
+}
+.bold {
+	font-weight: 700;
+}
+.sr-only {
+    clip: rect(1px,1px,1px,1px);
+    height: 1px;
+    margin: 0;
+    overflow: hidden;
+    position: absolute;
+    width: 1px;
+}
+footer {
+	border-top: thin #808080 solid;
+	margin-top: 1.5em;
+	font-size: 85%;
+}
+/*
+   This is from a font that I evidently don't have: font-awesome
+a::after {
+	content: "\f360";
+}
+*/
+@media (min-width: 800px) {
+	main {
+		display: grid;
+		grid-template-columns: 1fr 4fr;
+		grid-template-areas: "filters content";
+	}
+	section {
+		margin-left: 2em;
+		margin-top: 1em;
+		margin-bottom: 1.13em;
+		margin-right: 1em;
+		border-right: thin inset #C0C0C0;
+		border-bottom: thin inset #C0C0C0;
+	}
+	#filters > div {
+		position: sticky;
+		top: 1em;
+		height: 30em;
+		overflow-y:scroll;
+	}
+}
