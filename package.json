@@ -4,7 +4,8 @@
   "description": "This is meant to mimic the WCAG Quick Reference, except for ATAG.",
   "main": "atagscs.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build" : "echo \"Trying to build....not sure what to do here...\""
   },
   "repository": {
     "type": "git",
