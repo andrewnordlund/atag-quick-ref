@@ -36,6 +36,8 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
           
+      - run: npm install atag-as-json
+      
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
