@@ -46,8 +46,9 @@ jobs:
       - name: List files in the repository
         run: |
           pwd
-          ls -alR node_modules/atag-as-json
+          # ls -alR node_modules/atag-as-json
           FILE=node_modules/atag-as-json/atag.js
+          ls -al $FILE
           if [ -f "$FILE" ]; then
             echo "$FILE exists."
             cp $FILE ./
