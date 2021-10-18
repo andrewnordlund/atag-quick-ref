@@ -41,6 +41,12 @@ jobs:
           echo test, and deploy your project.
           npm ci
           echo Add another line.
+          echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+          echo "🖥️ The workflow is now ready to test your code on the runner."
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+      - run: echo "🍏 This job's status is ${{ job.status }}."
           
            
       # - name: Deploy to GitHub Pages
