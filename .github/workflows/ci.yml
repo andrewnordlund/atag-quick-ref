@@ -6,10 +6,8 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ prod ]
-  pull_request:
-    branches: [ prod ]
-
+    branches: [ main ]
+    
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -41,12 +39,18 @@ jobs:
           echo test, and deploy your project.
           npm ci
           echo Add another line.
+          echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+          echo "🖥️ The workflow is now ready to test your code on the runner."
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+      - run: echo "🍏 This job's status is ${{ job.status }}."
           
            
-      # - name: Deploy to GitHub Pages
-      #  uses: peaceiris/actions-gh-pages@v3
-      #  with:
-      #    github_token: ${{ secrets.GITHUB_TOKEN }}
-      #    publish_dir: ./
-      #    publish_branch: prod  # default: gh-pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
+          publish_branch: prod  # default: gh-pages
     
