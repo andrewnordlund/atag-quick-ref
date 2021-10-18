@@ -45,8 +45,8 @@ jobs:
           echo "🖥️ The workflow is now ready to test your code on the runner."
       - name: List files in the repository
         run: |
-          cp node_modules/atag-as-json/atag.js ./
           ls -alR ${{ github.workspace }}
+          cp node_modules/atag-as-json/atag.js ./
       - run: echo "🍏 This job's status is ${{ job.status }}."
           
            
