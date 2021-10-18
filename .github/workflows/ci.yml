@@ -45,7 +45,15 @@ jobs:
           echo "🖥️ The workflow is now ready to test your code on the runner."
       - name: List files in the repository
         run: |
+          pwd
           ls -alR ${{ github.workspace }}
+          FILE=node_modules/atag-as-json/atag.js
+          if [ -f "$FILE" ]; then
+            echo "$FILE exists."
+            cp $FILE ./
+          else 
+            echo "$FILE does not exist."
+          fi
       - run: echo "🍏 This job's status is ${{ job.status }}."
           
            
