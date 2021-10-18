@@ -4,4 +4,4 @@ This repo is meant to mimic the [How to Meet WCAG (Quickref Reference)](https://
 
 See the [ATAG Quick Reference](atagscs.html)
 
-It uses the [atag-as-json - npm](https://www.npmjs.com/package/atag-as-json) package.  
+It uses the [atag-as-json - npm](https://www.npmjs.com/package/atag-as-json) package.
