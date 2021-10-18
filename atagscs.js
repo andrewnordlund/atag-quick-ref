@@ -1,4 +1,4 @@
-let file = "node_modules/atag-as-json/atag.json"
+let file = "atag.json"
 let atagContents = null;
 let dbug = !true;
 let cont = null;
