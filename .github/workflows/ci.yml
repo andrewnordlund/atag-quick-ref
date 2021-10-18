@@ -46,9 +46,9 @@ jobs:
       - name: List files in the repository
         run: |
           pwd
-          # ls -alR ${{ github.workspace }}
-          ls -alR node_modules
-          FILE=node_modules/atag-as-json/atag.js
+          # ls -alR "${{ github.workspace }}node_modules/atag-as-json"
+          FILE="${{ github.workspace }}node_modules/atag-as-json/atag.js"
+          ls -al $FILE
           if [ -f "$FILE" ]; then
             echo "$FILE exists."
             cp $FILE ./
