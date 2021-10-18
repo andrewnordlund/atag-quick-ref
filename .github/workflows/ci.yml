@@ -42,18 +42,19 @@ jobs:
           npm ci
           echo Add another line.
           echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-          echo "🖥️ The workflow is now ready to test your code on the runner."
+          echo "🖥️ The workflow is now ready to test your code on the runner in github_workspace: ${{ github.workspace }}."
       - name: List files in the repository
         run: |
           pwd
-          # ls -alR "${{ github.workspace }}/node_modules/atag-as-json"
-          FILE="${{ github.workspace }}/node_modules/atag-as-json/atag.js"
-          ls -al $FILE
-          if [ -f "$FILE" ]; then
+          # FILE="./node_modules/atag-as-json"
+          ls -al ./
+          ls -al ./node_modules
+          ls -al ./node_modules/atag-as-json
+          if [ -f ./node_modules/atag-as-json/atag.json ]; then
             echo "$FILE exists."
-            cp $FILE ./
+            cp ./node_modules/atag-as-json/atag.json ./
           else 
-            echo "$FILE does not exist."
+            echo "./node_modules/atag-as-json/atag.json does not exist."
           fi
       - run: echo "🍏 This job's status is ${{ job.status }}."
           
