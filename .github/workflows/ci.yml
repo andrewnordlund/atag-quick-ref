@@ -46,14 +46,15 @@ jobs:
       - name: List files in the repository
         run: |
           pwd
-          # ls -alR "${{ github.workspace }}/node_modules/atag-as-json"
-          FILE="./node_modules/atag-as-json"
-          ls -al $FILE
-          if [ -f "$FILE" ]; then
+          # FILE="./node_modules/atag-as-json"
+          ls -al ./
+          ls -al ./node_modules
+          ls -al ./node_modules/atag-as-json
+          if [ -f ./node_modules/atag-as-json/atag.json ]; then
             echo "$FILE exists."
-            cp $FILE ./
+            cp ./node_modules/atag-as-json/atag.json ./
           else 
-            echo "$FILE does not exist."
+            echo "./node_modules/atag-as-json/atag.json does not exist."
           fi
       - run: echo "🍏 This job's status is ${{ job.status }}."
           
