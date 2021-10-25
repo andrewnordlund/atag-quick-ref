@@ -51,7 +51,7 @@ jobs:
           ls -al $DIR
           #ls -al ./node_modules
           #ls -al ./node_modules/atag-as-json
-          if [ -f ./node_modules/atag-as-json/atag.json ]; then
+          if [[ -f $DIR$FILE ]]; then
             echo "$DIR$FILE exists."
             cp ./node_modules/atag-as-json/atag.json ./
           else 
