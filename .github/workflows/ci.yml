@@ -46,8 +46,8 @@ jobs:
       - name: List files in the repository
         run: |
           pwd
-          # FILE="./node_modules/atag-as-json"
-          ls -al ./
+          FILE="./"
+          ls -al $FILE
           ls -al ./node_modules
           ls -al ./node_modules/atag-as-json
           if [ -f ./node_modules/atag-as-json/atag.json ]; then
