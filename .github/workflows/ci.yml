@@ -46,12 +46,13 @@ jobs:
       - name: List files in the repository
         run: |
           pwd
-          FILE="./"
-          ls -al $FILE
-          ls -al ./node_modules
-          ls -al ./node_modules/atag-as-json
+          DIR="./node_modules/atag-as-json/"
+          FILE="atag.json"
+          ls -al $DIR
+          #ls -al ./node_modules
+          #ls -al ./node_modules/atag-as-json
           if [ -f ./node_modules/atag-as-json/atag.json ]; then
-            echo "$FILE exists."
+            echo "$DIR$FILE exists."
             cp ./node_modules/atag-as-json/atag.json ./
           else 
             echo "./node_modules/atag-as-json/atag.json does not exist."
