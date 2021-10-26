@@ -1,0 +1,1165 @@
+{
+	"title" : "ATAG",
+	"description" : "Authoring Tools Accessibility Guidelines",
+	"version" : "2.0",
+	"url" : "https://www.w3.org/TR/ATAG20/",
+	"base_url" : "https://www.w3.org/TR/ATAG20/",
+	"implementation_base_url" : "http://www.w3.org/TR/2015/NOTE-IMPLEMENTING-ATAG20-20150924/",
+	"parts" :
+	[
+		{
+			"ref_id" : "A",
+			"title" : "Make the authoring tool user interface accessible",
+			"url_fragment" : "part_a",
+			"notes" : [
+				{
+					"title" : "Scope of \"authoring tool user interface\"",
+					"description" : "The Part A success criteria apply to all aspects of the authoring tool user interface that are concerned with producing the \"included\" web content technologies. This includes views of the web content being edited and features that are independent of the content being edited (e.g. menus, button bars, status bars, user preferences, documentation)."
+				},
+				{
+					"title" : "Reflected content accessibility problems",
+					"description" : "The authoring tool is responsible for ensuring that editing-views display the web content being edited in a way that is more accessible to authors with disabilities (e.g. ensuring that text alternatives in the content can be programmatically determined). However, where an authoring tool user interface accessibility problem is caused directly by the content being edited (e.g. if an image in the content lacks a text alternative), then this would not be considered a deficiency in the accessibility of the authoring tool user interface."
+				},
+				{
+					"title" : "Developer control",
+					"description" : "The Part A success criteria only apply to the authoring tool user interface as it is provided by the developer. They do not apply to any subsequent modifications by parties other than the authoring tool developer (e.g. user modifications of default settings, third-party plug-ins)."
+				},
+				{
+					"title" : "User agent features",
+					"description" : "Web-based authoring tools may rely on user agent features (e.g. keyboard navigation, find functions, display preferences, undo features) to satisfy success criteria. Conformance claims are optional, but any claim that is made must record the user agent(s)."
+				},
+				{
+					"title" : "Accessibility of features provided to meet Part A",
+					"description" : "The Part A success criteria apply to the entire authoring tool user interface, including any features added to meet the success criteria in Part A (e.g. documentation, search functions). The only exemption is for preview features, as long as they meet the relevant success criteria in Guideline A.3.7. Previews are treated differently than editing-views because all authors, including those with disabilities, benefit when preview features accurately reflect the functionality of user agents that are actually in use by end users."
+				},
+				{
+					"title" : "Unrecognizable content",
+					"description" : "When success criteria require authoring tools to treat web content according to semantic criteria, the success criteria only apply when these semantics are encoded programmatically (e.g. text describing an image can only be considered a text alternatives for non-text content when this role is encoded within markup)."
+				}
+			],
+			"principles" : 
+				[
+					{
+						"ref_id" : "A.1",
+						"title" : "Authoring tool user interfaces follow applicable accessibility guidelines",
+						"url_fragment" : "principle_a1",
+						"guidelines" : 
+							[
+								{
+									"ref_id" : "A.1.1",
+									"title" : "(For the authoring tool user interface) Ensure that web-based functionality is accessible.",
+									"rationale" : "When authoring tools (or parts of authoring tools) are web-based, conforming to WCAG 2.0 will facilitate access by all authors, including those using assistive technologies.",
+									"url_fragment" : "gl_a11",
+									"notes" : null,
+									"success_criteria" : 
+										[
+											{
+												"ref_id" : "A.1.1.1",
+												"title" : "Web-Based Accessible (WCAG)",
+												"description" : "If the authoring tool contains web-based user interfaces, then those web-based user interfaces meet the WCAG 2.0 success criteria.",
+												"level" : "A,AA,AAA",
+												"url_fragment" : "sc_a111",
+												"notes" : null,
+												"special_cases" : null
+											}
+										]
+								},
+								{
+									"ref_id" : "A.1.2",
+									"title" : "(For the authoring tool user interface) Ensure that non-web-based functionality is accessible",
+									"rationale" : "When authoring tools (or parts of authoring tools) are non-web-based, following existing platform accessibility guidelines and implementing communication with platform accessibility services facilitates access by all authors, including those using assistive technologies.",
+									"url_fragment": "gl_a12",
+									"notes" : null,
+									"success_criteria" : 
+										[
+											{
+												"ref_id" : "A.1.2.1",
+												"title" : "Accessibility Guidelines",
+												"description" : "If the authoring tool contains non-web-based user interfaces, then those non-web-based user interfaces follow user interface accessibility guidelines for the platform.",
+												"level" : "A",
+												"url_fragment" : "sc_a121",
+												"notes" : [
+												{ "content" : "The (optional) explanation of conformance claim results should record the user interface accessibility guidelines that were followed."}],
+												"special_cases" : null
+											},
+											{
+												"ref_id" : "A.1.2.2",
+												"title" : "Platform Accessibility Services",
+												"description" : "If the authoring tool contains non-web-based user interfaces, then those non-web-based user interfaces expose accessibility information through platform accessibility services.",
+												"level" : "A",
+												"url_fragment" : "sc_a122",
+												"notes" : [ {"content" : "The (optional) explanation of conformance claim results should record the platform accessibility service(s) that were implemented."}],
+												"special_cases" : null
+											}
+										]
+								}
+							]
+					},
+					{
+						"ref_id" : "A.2",
+						"title" : "Editing-views are perceivable",
+						"url_fragment" : "principle_a2",
+						"guidelines" : 
+							[
+								{
+									"ref_id" : "A.2.1",
+									"title" : "(For the authoring tool user interface) Make alternative content available to authors.",
+									"rationale" : "Some authors require access to alternative content in order to interact with the web content that they are editing.",
+									"url_fragment" : "gl_a21",
+									"notes" : null,
+									"success_criteria" : 
+										[
+											{
+												"ref_id" : "A.2.1.1",
+												"title" : "Text Alternatives for Rendered Non-Text Content",
+												"description" : "If an editing-view renders non-text content, then any programmatically associated text alternatives for the non-text content can be programmatically determined.",
+												"level" : "A",
+												"url_fragment" : "sc_a211",
+												"notes": null,
+												"special_cases" : null
+											},
+											{
+												"ref_id" : "A.2.1.2",
+												"title" : "Alternatives for Rendered Time-Based Media",
+												"description" : "If an editing-view renders time-based media, then at least one of the following is true:",
+												"level" : "A",
+												"url_fragment" : "sc_a212",
+												"notes" : null,
+												"special_cases" : 
+													[
+														{
+										      					"type": "at_least_one",
+															"title": "Option to Render",
+															"description": "The authoring tool provides the option to render alternatives for the time-based media;"
+				    										},
+														{
+										      				  	"type": "at_least_one",
+															"title": "User Agent Option",
+															"description": "Authors have the option to preview the time-based media in a user agent that is able to render the alternatives."
+				    										}
+
+													]
+											}
+										]
+								},
+								{
+									"ref_id" : "A.2.2",
+									"title" : "(For the authoring tool user interface) Ensure that editing-view presentation can be programmatically determined. ",
+									"rationale" : "Some authors need access to details about the editing-view presentation, via their assistive technology, when that presentation is used to convey status messages (e.g. underlining misspelled words) or provide information about how the end user will experience the web content being edited.",
+									"url_fragment" : "gl_a22",
+									"notes" : null,
+									"success_criteria" : 
+										[
+											{
+												"ref_id" : "A.2.2.1",
+												"title" : "Editing-View Status Indicators",
+												"description" : "If an editing-view adds status indicators to the content being edited, then the information being conveyed by the status indicators can be programmatically determined.",
+												"level" : "A",
+												"url_fragment" : "sc_a221",
+												"notes" : [{"content" : "Status indicators may indicate errors (e.g. spelling errors), tracked changes, hidden elements, or other information."}],
+												"special_cases" : null
+											},
+											{
+												"ref_id" : "A.2.2.2",
+												"title" : "Access to Rendered Text Properties",
+												"description" : "If an editing-view renders any text formatting properties that authors can also edit using the editing-view, then the properties can be programmatically determined.",
+												"level" : "AA",
+												"url_fragment" : "sc_a222",
+												"notes" : null,
+												"special_cases" : null
+											}
+										]
+								}
+						]
+					},
+					{
+						"ref_id" : "A.3",
+						"title" : "Editing-views are operable",
+						"url_fragment" : "principle_a3",
+						"guidelines" : 
+							[
+								{
+									"ref_id" : "A.3.1",
+									"title" : "(For the authoring tool user interface) Provide keyboard access to authoring features.",
+									"rationale" : "Some authors with limited mobility or visual disabilities do not use a mouse and instead require keyboard interface access to all of the functionality of the authoring tool.",
+									"url_fragment" : "gl_a31",
+									"notes" : null,
+									"success_criteria" : 
+										[
+											{
+												"ref_id" : "A.3.1.1",
+												"title" : "Keyboard Access (Minimum)",
+												"description" : "All functionality of the authoring tool is operable through a keyboard interface without requiring specific timings for individual keystrokes, except where the underlying function requires input that depends on the path of the user's movement and not just the endpoints.",
+												"level" : "A",
+												"url_fragment" : "sc_a311",
+												"notes": 
+													[
+														{"content" : "Keyboard interfaces are programmatic services provided by many platforms that allow operation in a device independent manner. This success criterion does not imply the presence of a hardware keyboard."},
+														{"content" : "The path exception relates to the underlying function, not the input technique. For example, if using handwriting to enter text, the input technique (handwriting) requires path-dependent input, but the underlying function (text input) does not. The path exception encompasses other input variables that are continuously sampled from pointing devices, including pressure, speed, and angle."},
+														{"content" : "This success criterion does not forbid and should not discourage other input methods (e.g. mouse, touch) in addition to keyboard operation."}
+													],
+												"special_cases" : null
+											},
+											{
+												"ref_id" : "A.3.1.2",
+												"title" : "No Keyboard Traps",
+												"description" : "If keyboard focus can be moved to a component using a keyboard interface, then focus can be moved away from that component using only a keyboard interface. If it requires more than unmodified arrow or tab keys or other standard exit methods, authors are advised of the method for moving focus away.",
+												"level" : "A",
+												"url_fragment" : "sc_a312",
+												"notes": null,
+												"special_cases" : null
+											},
+											{
+												"ref_id" : "A.3.1.3",
+												"title" : "Efficient Keyboard Access",
+												"description" : "The authoring tool user interface includes mechanisms to make keyboard access more efficient than sequential keyboard access.",
+												"level" : "AA",
+												"url_fragment" : "sc_a313",
+												"notes": null,
+												"special_cases" : null
+											},
+											{
+												"ref_id" : "A.3.1.4",
+												"title" : "Keyboard Access (Enhanced)",
+												"description" : "All functionality of the authoring tool is operable through a keyboard interface without requiring specific timings for individual keystrokes.",
+												"level" : "AAA",
+												"url_fragment" : "sc_a314",
+												"notes": null,
+												"special_cases" : null
+											},
+											{
+												"ref_id" : "A.3.1.5",
+												"title" : "Customize Keyboard Access",
+												"description" : "If the authoring tool includes keyboard commands, then those keyboard commands can be customized.",
+												"level" : "AAA",
+												"url_fragment" : "sc_a315",
+												"notes": null,
+												"special_cases" : null
+											},
+											{
+												"ref_id" : "A.3.1.6",
+												"title" : "Present Keyboard Commands",
+												"description" : " If the authoring tool includes keyboard commands, then the authoring tool provides a way for authors to determine the keyboard commands associated with authoring tool user interface components.",
+												"level" : "AAA",
+												"url_fragment" : "sc_a316",
+												"notes": null,
+												"special_cases" : null
+											}
+									]
+								},
+								{
+									"ref_id" : "A.3.2",
+									"title" : "(For the authoring tool user interface) Provide authors with enough time.",
+									"rationale" : "Some authors who have difficulty typing, operating the mouse, or processing information can be prevented from using systems with short time limits or that require fast reaction speeds, such as clicking on a moving target.",
+									"url_fragment" : "gl_a32",
+									"notes" : null,
+									"success_criteria" : 
+										[
+											{
+												"ref_id" : "A.3.2.1",
+												"title" : "Auto-Save (Minimum)",
+												"description" : "The authoring tool does not include session time limits or the authoring tool can automatically save edits made before the session time limits are reached.",
+												"level" : "A",
+												"url_fragment" : "sc_a321",
+												"notes": null,
+												"special_cases" : null
+											},
+											{
+												"ref_id" : "A.3.2.2",
+												"title" : "Timing Adjustable",
+												"description" : "The authoring tool does not include time limits or at least one of the following is true: ",
+												"level" : "A",
+												"url_fragment" : "sc_a322",
+												"notes": null,
+												"special_cases" : 
+													[
+														{
+										      					"type": "at_least_one",
+															"title": "Turn Off",
+															"description": "Authors are allowed to turn off the time limit before encountering it;"
+				    										},
+														{
+										      					"type": "at_least_one",
+															"title": "Adjust",
+															"description": "Authors are allowed to adjust the time limit before encountering it over a wide range that is at least ten times the length of the default setting;"
+				    										},
+														{
+										      					"type": "at_least_one",
+															"title": "Extend",
+															"description": "Authors are warned before time expires and given at least 20 seconds to extend the time limit with a simple action (e.g. \"press the space bar\"), and authors are allowed to extend the time limit at least ten times"
+				    										},
+														{
+										      					"type": "at_least_one",
+															"title": "Real-time Exception",
+															"description": "The time limit is a required part of a real-time event (e.g. a collaborative authoring system), and no alternative to the time limit is possible;"
+				    										},
+														{
+										      					"type": "at_least_one",
+															"title": "Essential Exception",
+															"description": "The time limit is essential and extending it would invalidate the activity;"
+				    										},
+														{
+										      					"type": "at_least_one",
+															"title": "20 Hour Exception",
+															"description": "The time limit is longer than 20 hours."
+				    										}
+
+													]
+											},
+											{
+												"ref_id" : "A.3.2.3",
+												"title" : "Static Input Components",
+												"description" : "The authoring tool does not include moving user interface components that accept input where the movement of these components cannot be paused by authors.",
+												"level" : "A",
+												"url_fragment" : "sc_a323",
+												"notes": null,
+												"special_cases" : null
+											},
+											{
+												"ref_id" : "A.3.2.4",
+												"title" : "Content Edits Saved (Extended)",
+												"description" : "The authoring tool can be set to automatically save web content edits made using the authoring tool.",
+												"level" : "AAA",
+												"url_fragment" : "sc_a324",
+												"notes": null,
+												"special_cases" : null
+											}
+									]
+								},
+								{
+									"ref_id" : "A.3.3",
+									"title" : "(For the authoring tool user interface) Help authors avoid flashing that could cause seizures.",
+									"rationale" : "Flashing can cause seizures in authors with photosensitive seizure disorder.",
+									"url_fragment" : "gl_a33",
+									"notes" : null,
+									"success_criteria" : 
+										[
+											{
+												"ref_id" : "A.3.3.1",
+												"title" : "Static View Option",
+												"description" : "If an editing-view can play visual time-based content, then playing is not necessarily automatic upon loading the content and playing can be paused.",
+												"level" : "A",
+												"url_fragment" : "sc_a331",
+												"notes": null,
+												"special_cases" : null
+											}
+										]
+								},
+								{
+									"ref_id" : "A.3.4",
+									"title" : "(For the authoring tool user interface) Enhance navigation and editing via content structure.",
+									"rationale" : "Some authors who have difficulty typing or operating the mouse benefit when authoring tools make use of the structure present in web content to simplify navigating and editing the content.",
+									"url_fragment" : "gl_a34",
+									"notes" : null,
+									"success_criteria" : 
+										[
+											{
+												"ref_id" : "A.3.4.1",
+												"title" : "Navigate By Structure",
+												"description" : "If editing-views expose the markup elements in the web content being edited, then the markup elements (e.g. source code, content renderings) are selectable and navigation mechanisms are provided to move the selection focus between elements.",
+												"level" : "AA",
+												"url_fragment" : "sc_a341",
+												"notes": null,
+												"special_cases" : null
+											},
+											{
+												"ref_id" : "A.3.4.2",
+												"title" : "Navigate by Programmatic Relationships",
+												"description" : "If editing-views allow editing of programmatic relationships within web content, then mechanisms are provided that support navigation between the related content.",
+												"level" : "AAA",
+												"url_fragment" : "sc_a342",
+												"notes" : 
+													[
+														{"content" : "Depending on the web content technology and the nature of the authoring tool, relationships may include, but are not limited to, element nesting, headings, labeling, programmatic definitions, and ID relationships."}],
+												"special_cases" : null
+											}
+										]
+								},
+								{
+									"ref_id" : "A.3.5",
+									"title" : "(For the authoring tool user interface) Provide text search of the content.",
+									"rationale" : "Some authors who have difficulty typing or operating the mouse benefit from the ability to use text search to navigate to arbitrary points within the web content being edited.",
+									"url_fragment" : "gl_a35",
+									"notes" : null,
+									"success_criteria" : 
+										[
+											{
+												"ref_id" : "A.3.5.1",
+												"title" : "Text Search",
+												"description" : "If the authoring tool provides an editing-view of text-based content, then the editing-view enables text search, such that all of the following are true:",
+												"level" : "AA",
+												"url_fragment" : "sc_a351",
+												"notes": null,
+												"special_cases" :
+													[
+														{
+										      					"type": "all_true",
+															"title": "All Editable Text",
+															"description": "Any text content that is editable by the editing-view is searchable (including alternative content);"
+				    										},
+														{
+										      					"type": "all_true",
+															"title": "Match",
+															"description": "Matching results can be presented to authors and given focus;"
+				    										},
+														{
+										      					"type": "all_true",
+															"title": "No Match",
+															"description": "Authors are informed when no results are found;"
+				    										},
+														{
+										      					"type": "all_true",
+															"title": "Two-way",
+															"description": "The search can be made forwards or backwards."
+				    										}
+														
+													]
+											}
+										]
+								},
+								{
+									"ref_id" : "A.3.6",
+									"title" : "(For the authoring tool user interface) Manage preference settings.",
+									"rationale" : "Some authors need to set their own display settings in a way that differs from the presentation that they want to define for the published web content. Providing the ability to save and reload sets of keyboard and display preference settings benefits authors who have needs that differ over time (e.g. due to fatigue).",
+									"url_fragment" : "gl_a36",
+									"notes" : null,
+									"success_criteria" : 
+										[
+											{
+												"ref_id" : "A.3.6.1",
+												"title" : "Independence of Display",
+												"description" : "If the authoring tool includes display settings for editing-views, then the authoring tool allows authors to adjust these settings without modifying the web content being edited.",
+												"level" : "A",
+												"url_fragment" : "sc_a361",
+												"notes": null,
+												"special_cases" : null
+											},
+											{
+												"ref_id" : "A.3.6.2",
+												"title" : "Save Settings",
+												"description" : "If the authoring tool includes display and/or control settings, then these settings can be saved between authoring sessions.",
+												"level" : "AA",
+												"url_fragment" : "sc_a362",
+												"notes": null,
+												"special_cases" : null
+											},
+											{
+												"ref_id" : "A.3.6.3",
+												"title" : "Apply Platform Settings",
+												"description" : "The authoring tool respects changes in platform display and control settings, unless authors select more specific display and control settings using the authoring tool.",
+												"level" : "AA",
+												"url_fragment" : "sc_a363",
+												"notes": null,
+												"special_cases" : null
+											}
+										]
+								},
+								{
+									"ref_id" : "A.3.7",
+									"title" : "(For the authoring tool user interface) Ensure that previews are at least as accessible as in-market user agents.",
+									"rationale" : "Preview features are provided by many authoring tools because the workflow of authors often includes periodically checking how user agents will display the web content to end users. Authors with disabilities need the same opportunity to check their work.",
+									"url_fragment" : "gl_a37",
+									"notes" : null,
+									"success_criteria" : 
+										[
+											{
+												"ref_id" : "A.3.7.1",
+												"title" : "Preview (Minimum)",
+												"description" : "If a preview is provided, then at least one of the following is true",
+												"level" : "A",
+												"url_fragment" : "sc_a371",
+												"notes": null,
+												"special_cases" : 
+													[
+														{
+										      					"type": "at_least_one",
+															"title": "In-Market User Agent",
+															"description": "The preview renders content using a user agent that is in-market;"
+				    										},
+														{
+										      					"type": "at_least_one",
+															"title": "UAAG (Level A)",
+															"description": "The preview conforms to the User Agent Accessibility Guidelines 1.0 Level A"
+				    										}																								]
+											},
+											{												
+												"ref_id" : "A.3.7.2",
+												"title" : "Preview (Enhanced)",
+												"description" : "If a preview is provided, then authors can specify which user agent performs the preview.",
+												"level" : "AAA",
+												"url_fragment" : "sc_a372",
+												"notes": null,
+												"special_cases" : null
+											}
+									]
+								}
+						]
+					},
+					{
+						"ref_id" : "A.4",
+						"title" : "Editing-views are understandable",
+						"url_fragment" : "principle_a4",
+						"guidelines" : 
+							[
+								{
+									"ref_id" : "A.4.1",
+									"title" : "(For the authoring tool user interface) Help authors avoid and correct mistakes.",
+									"rationale" : "Some authors with disabilities may be more susceptible to input errors due to factors such as difficulty making fine movements and speech recognition system errors.",
+									"url_fragment" : "gl_a41",
+									"notes" : null,
+									"success_criteria" : 
+										[
+											{
+												"ref_id" : "A.4.1.1",
+												"title" : "Content Changes Reversible (Minimum)",
+												"description" : "All authoring actions are either reversible or the authoring tool requires author confirmation to proceed.",
+												"level" : "A",
+												"url_fragment" : "sc_a411",
+												"notes": null,
+												"special_cases" : null
+											},
+											{
+												"ref_id" : "A.4.1.2",
+												"title" : "Settings Change Confirmation",
+												"description" : "If the authoring tool provides mechanisms for changing authoring tool user interface settings, then those mechanisms can reverse the setting changes, or the authoring tool requires author confirmation to proceed.",
+												"level" : "A",
+												"url_fragment" : "sc_a412",
+												"notes": null,
+												"special_cases" : null
+											},
+											{
+												"ref_id" : "A.4.1.3",
+												"title" : "Content Changes Reversible (Enhanced)",
+    												"description" : "Authors can sequentially reverse a series of reversible authoring actions.",
+												"level" : "AAA",
+												"url_fragment" : "sc_a413",
+												"notes": [{"content" : "It is acceptable to clear the authoring action history at the end of authoring sessions."}],
+												"special_cases" : null
+											}
+									]
+								},
+								{
+									"ref_id" : "A.4.2",
+									"title" : "(For the authoring tool user interface) Document the user interface, including all accessibility features.",
+									"rationale" : "Some authors may not be able to understand or operate the authoring tool user interface without documentation.",
+									"url_fragment" : "gl_a42",
+									"notes" : null,
+									"success_criteria" : 
+										[
+											{
+												"ref_id" : "A.4.2.1",
+												"title" : "Describe Accessibility Features",
+												"description" : "For each authoring tool feature that is used to meet Part A of ATAG 2.0, at least one of the following is true:",
+												"level" : "A",
+												"url_fragment" : "sc_a421",
+												"notes": [{"content" : "The accessibility of the documentation is covered by Guideline A.1.1 and Guideline A.1.2."}],
+												"special_cases" : 
+													[
+														{
+										      					"type": "at_least_one",
+															"title": "Described in the Documentation",
+															"description": "Use of the feature is explained in the authoring tool's documentation;"
+				    										},
+														{
+										      					"type": "at_least_one",
+															"title": "Described in the Interface",
+															"description": "Use of the feature is explained in the authoring tool user interface;"
+				    										},
+														{
+										      					"type": "at_least_one",
+															"title": "Platform Service",
+															"description": "The feature is a service provided by an underlying platform;"
+				    										},
+														{
+										      					"type": "at_least_one",
+															"title": "Not Used by Authors",
+															"description": "The feature is not used directly by authors (e.g. passing information to a platform accessibility service)."
+				    										}
+													]
+											},
+											{
+												"ref_id" : "A.4.2.2",
+												"title" : "Document All Features",
+												"description" : "For each authoring tool feature, at least one of the following is true:",
+												"level" : "AA",
+												"url_fragment" : "sc_a422",
+												"notes": [{"content" : "The accessibility of the documentation is covered by Guideline A.1.1 and Guideline A.1.2."}],
+												"special_cases" : 
+													[
+														{
+										      					"type": "at_least_one",
+															"title": "Described in the Documentation",
+															"description": "Use of the feature is explained in the authoring tool's documentation;"
+				    										},
+														{
+										      					"type": "at_least_one",
+															"title": "Described in the Interface",
+															"description": "Use of the feature is explained in the authoring tool user interface;"
+				    										},
+														{
+										      					"type": "at_least_one",
+															"title": "Platform Service",
+															"description": "The feature is a service provided by an underlying platform;"
+				    										},
+														{
+										      					"type": "at_least_one",
+															"title": "Not Used by Authors",
+															"description": "The feature is not used directly by authors (e.g. passing information to a platform accessibility service)."
+				    										}
+													]
+											}
+									]
+								}
+						]
+					}
+				]
+		},
+		{
+		"ref_id" : "B",
+		"title" : "Support the production of accessible content",
+		"url_fragment" : "part_b",
+		"notes" : {
+			"title" : "Conformance Applicability Notes",
+			"notes" : [
+				{
+					"title" : "Author availability",
+					"description" : "Any Part B success criteria that refer to authors only apply during authoring sessions."
+				},
+				{
+					"title" : "Developer control",
+					"description" : "The Part B success criteria only apply to the authoring tool as it is provided by the developer. This does not include subsequent modifications by parties other than the authoring tool developer (e.g. third-party plug-ins, user-defined templates, user modifications of default settings)."
+				},
+				{
+					"title" : "Applicability after the end of an authoring session",
+					"description" : "Authoring tools are responsible for the web content accessibility (WCAG) of web content that they automatically generate after the end of an author's authoring session (see Success Criterion B.1.1.1). For example, if the developer changes the site-wide templates of a content management system, these would be required to meet the accessibility requirements for automatically-generated content. Authoring tools are not responsible for changes to the accessibility of content that the author causes, whether it is author-generated or automatically-generated by another system that the author has specified (e.g. a third-party feed)."				},
+				{
+					"title" : "Authoring systems",
+					"description" : "As per the ATAG 2.0 definition of authoring tool, several software tools (identified in any conformance claim) can be used in conjunction to meet the requirements of Part B (e.g. an authoring tool could make use of a third-party software accessibility checking tool)."
+				},
+				{
+					"title" : "Accessibility of features provided to meet Part B",
+					"description" : "The Part A success criteria apply to the entire authoring tool user interface, including any features that must be present to meet the success criteria in Part B (e.g. checking tools, repair tools, tutorials, documentation)." 
+				},
+				{
+					"title" : "Multiple authoring roles",
+					"description" : "Some authoring tools include multiple author roles, each with different views and content editing permissions (e.g. a content management system may separate the roles of designers, content authors, and quality assurers). In these cases, the Part B success criteria apply to the authoring tool as a whole, not to the view provided to any particular authoring role. Accessible content support features should be made available to any authoring role where it would be useful."
+				},
+				{
+					"title" : "Unrecognizable content",
+					"description" : "When success criteria require authoring tools to treat web content according to semantic criteria, the success criteria only apply when these semantics are encoded programmatically (e.g. text describing an image can only be considered a text alternatives for non-text content when this role is encoded within markup)."
+				}
+			]
+		},
+		"principles" : 
+			[
+				{
+					"ref_id" : "B.1",
+					"title" : "Fully automatic processes produce accessible content",
+					"url_fragment" : "principle_b1",
+					"guidelines" : 
+						[
+							{
+								"ref_id" : "B.1.1",
+								"title" : "Ensure that automatically-specified content is accessible.",
+								"rationale" : "If authoring tools automatically produce web content that includes accessibility problems (WCAG), then this will impose additional repair tasks on authors.",
+								"url_fragment" : "gl_b11",
+								"notes" : null,
+								"success_criteria" : 
+									[
+										{
+											"ref_id" : "B.1.1.1",
+											"title" : "Content Auto-Generation After Authoring Sessions (WCAG)",
+											"description" : "The authoring tool does not automatically generate web content after the end of an authoring session, or, authors can specify that the content be accessible web content (WCAG).",
+											"level" : "A,AA,AAA",
+											"url_fragment" : "sc_b111",
+											"notes" : [{"content" : "This success criterion applies only to automatic processes specified by the authoring tool developer. It does not apply when author actions prevent generation of accessible web content (WCAG)."}],
+											"special_cases" : null
+										},
+										{
+											"ref_id" : "B.1.1.2",
+											"title" : "Content Auto-Generation After Authoring Sessions (WCAG)",
+											"description" : "The authoring tool does not automatically generate web content after the end of an authoring session, or, authors can specify that the content be accessible web content (WCAG).",
+											"level" : "A,AA,AAA",
+											"url_fragment" : "sc_b112",
+											"notes" : [{"content" : "Automatic generation includes automatically selecting templates for authors."},{"content" : "This success criterion applies only to automatic processes specified by the authoring tool developer. It does not apply when author actions prevent generation of accessible web content (WCAG)."}],
+											"special_cases" : 
+												[
+													{
+										      				"type": "at_least_one",
+														"title": "Accessible",
+														"description": "The content is accessible web content (WCAG) without author input;"
+				    									},
+													{
+										      				"type": "at_least_one",
+														"title": "Prompting",
+														"description": "During the automatic generation process, authors are prompted for any required accessibility information (WCAG);"
+				    									},
+													{
+										      				"type": "at_least_one",
+														"title": "Automatic Checking",
+														"description": "After the automatic generation process, accessibility checking is automatically performed;"
+				    									},
+														{
+										      					"type": "at_least_one",
+															"title": "Checking Suggested",
+															"description": "After the automatic generation process, the authoring tool prompts authors to perform accessibility checking."
+				    										}
+													]
+											}
+										]
+								},
+								{
+									"ref_id" : "B.1.2",
+									"title" : "Ensure that accessibility information is preserved.",
+									"rationale" : "Accessibility information (WCAG) is critical to maintaining comparable levels of web content accessibility (WCAG) between the input and output of web content transformations.",
+									"url_fragment" : "gl_b12",
+									"notes" : null,
+									"success_criteria" : 
+										[
+											{
+												"ref_id" : "B.1.2.1",
+												"title" : "Restructuring and Recoding Transformations (WCAG)",
+												"description" : "If the authoring tool provides restructuring transformations or re-coding transformations, and if equivalent mechanisms exist in the web content technology of the output, then at least one of the following is true:",
+												"level" : "A,AA,AAA",
+												"url_fragment" : "sc_b121",
+												"notes" : [{"content" : "For text alternatives for non-text content, see Success Criterion B.1.2.4."},{"content" : "This success criteria only applies when the output technology is \"included\" for conformance."}],
+												"special_cases" : 
+												[
+														{
+										      					"type": "at_least_one",
+															"title": "Preserve",
+															"description": " Accessibility information (WCAG) is preserved in the output;"
+				    										},
+														{
+										      					"type": "at_least_one",
+															"title": "Warning",
+															"description": "Authors have the default option to be warned that accessibility information (WCAG) may be lost (e.g. when saving a vector graphic into a raster image format);"
+				    										},
+														{
+										      					"type": "at_least_one",
+															"title": "Automatic Checking",
+															"description": "After the transformation, accessibility checking is automatically performed;"
+				    										},
+														{
+										      					"type": "at_least_one",
+															"title": "Checking Suggested",
+															"description": "After the transformation, the authoring tool prompts authors to perform accessibility checking."
+				    										}
+
+													]
+											},
+											{
+												"ref_id" : "B.1.2.2",
+												"title" : "Copy-Paste Inside Authoring Tool (WCAG)",
+												"description" : "If the authoring tool supports copy and paste of structured content, then any accessibility information (WCAG) in the copied content is preserved when the authoring tool is both the source and destination of the copy-paste and the source and destination use the same web content technology.",
+												"level" : "A",
+												"url_fragment" : "sc_b122",
+												"notes" : null,
+												"special_cases" : null
+											},
+											{
+												"ref_id" : "B.1.2.3",
+												"title" : "Optimizations Preserve Accessibility",
+												"description" : "If the authoring tool provides optimizing web content transformations, then any accessibility information (WCAG) in the input is preserved in the output.",
+												"level" : "A",
+												"url_fragment" : "sc_b123",
+												"notes" : null,
+												"special_cases" : []
+											},
+											{
+												"ref_id" : "B.1.2.4",
+												"title" : "Text Alternatives for Non-Text Content are Preserved",
+												"description" : "If the authoring tool provides web content transformations that preserve non-text content in the output, then any text alternatives for that non-text content are also preserved, if equivalent mechanisms exist in the web content technology of the output.",
+												"level" : "A",
+												"url_fragment" : "sc_b124",
+												"notes" : [{"content" : "This success criterion only applies when the output technology is \"included\" for conformance."}],
+												"special_cases" : null
+											}
+										]
+								}
+							]
+					},
+					{
+						"ref_id" : "B.2",
+						"title" : "Authors are supported in producing accessible content",
+						"url_fragment" : "principle_b2",
+						"guidelines" : 
+							[
+								{
+									"ref_id" : "B.2.1",
+									"title" : "Ensure that accessible content production is possible.",
+									"rationale" : "To support accessible web content (WCAG) production, at minimum, it is possible to produce web content that conforms with WCAG 2.0 using the authoring tool.",
+									"url_fragment" : "gl_b21",
+									"notes" : null,
+									"success_criteria" : 
+										[
+											{
+												"ref_id" : "B.2.1.1",
+												"title" : "Accessible Content Possible (WCAG)",
+												"description" : "The authoring tool does not place restrictions on the web content that authors can specify or those restrictions do not prevent WCAG 2.0 success criteria from being met.",
+												"level" : "A,AA,AAA",
+												"url_fragment" : "sc_b211",
+												"notes" : null,
+												"special_cases" : null
+											}
+										]
+								},
+								{
+									"ref_id" : "B.2.2",
+									"title" : "Guide authors to produce accessible content.",
+									"rationale" : "By guiding authors from the outset toward the creation and maintenance of accessible web content (WCAG), web content accessibility problems (WCAG) are mitigated and less repair effort is required.",
+									"url_fragment" : "gl_b22",
+									"notes" : null,
+									"success_criteria" : 
+										[
+											{
+												"ref_id" : "B.2.2.1",
+												"title" : "Accessible Option Prominence (WCAG)",
+												"description" : "If authors are provided with a choice of authoring actions for achieving the same authoring outcome (e.g. styling text), then options that will result in accessible web content (WCAG) are at least as prominent as options that will not.",
+												"level" : "A,AA,AAA",
+												"url_fragment" : "sc_b221",
+												"notes" : null,
+												"special_cases" : null
+											},
+											{
+												"ref_id" : "B.2.2.2",
+												"title" : "Setting Accessibility Properties (WCAG)",
+												"description" : "If the authoring tool provides mechanisms to set web content properties (e.g. attribute values), then mechanisms are also provided to set web content properties related to accessibility information (WCAG).",
+												"level" : "A,AA,AAA",
+												"url_fragment" : "sc_b222",
+												"notes" : null,
+												"special_cases" : null
+											}
+										]
+								},
+								{
+									"ref_id" : "B.2.3",
+									"title" : "Assist authors with managing alternative content for non-text content.",
+									"rationale" : "Improperly generated alternative content can create web content accessibility problems (WCAG) and interfere with accessibility checking.",
+									"url_fragment" : "gl_b23",
+									"notes" : [{"content" : "This guideline only applies when non-text content is specified by authors (e.g. inserting an image). When non-text content is automatically added by the authoring tool, see Guideline B.1.1."}],
+									"success_criteria" : 
+										[
+											{
+												"ref_id" : "B.2.3.1",
+												"title" : "Alternative Content is Editable (WCAG)",
+												"description" : "If the authoring tool provides functionality for adding non-text content, then authors are able to modify programmatically associated text alternatives for non-text content.",
+												"level" : "A,AA,AAA",
+												"url_fragment" : "sc_b231",
+												"notes" : [{"content" : "An exception can be made when the non-text content is known to be decoration, formatting, invisible or a CAPTCHA."}],
+												"special_cases" : null
+											},
+											{
+												"ref_id" : "B.2.3.2",
+												"title" : "Automating Repair of Text Alternatives",
+												"description" : "The authoring tool does not attempt to repair text alternatives for non-text content or the following are all true:",
+												"level" : "A",
+												"url_fragment" : "sc_b232",
+												"notes" : null,
+												"special_cases" : 
+													[
+														{
+										      					"type": "all_true",
+															"title": "No Generic or Irrelevant Strings",
+															"description": "Generic strings (e.g. \"image\") and irrelevant strings (e.g. the file name, file format) are not used as text alternatives;"
+				    										},
+														{
+										      					"type": "all_true",
+															"title": "In-Session Repairs",
+															"description": "If the repair attempt occurs during an authoring session, authors have the opportunity to accept, modify, or reject the repair attempt prior to insertion of the text alternative into the content;"
+				    										},
+														{
+										      					"type": "all_true",
+															"title": "Out-of-Session Repairs",
+															"description": "If the repair attempt occurs after an authoring session has ended, the repaired text alternatives are indicated during subsequent authoring sessions (if any) and authors have the opportunity to accept, modify, or reject the repair strings prior to insertion in the content."
+				    										}
+													]
+											},
+											{
+												"ref_id" : "B.2.3.3",
+												"title" : "Save for Reuse",
+												"description" : "If the authoring tool provides the functionality for adding non-text content, when authors enter programmatically associated text alternatives for non-text content, then both of the following are true:",
+												"level" : "AAA",
+												"url_fragment" : "sc_b233",
+												"notes" : null,
+												"special_cases" : 
+													[
+														{
+										      					"type": "all_true",
+															"title": "Save and Suggest",
+															"description": "The text alternatives are automatically saved and suggested by the authoring tool, if the same non-text content is reused;"
+				    										},
+														{
+										      					"type": "all_true",
+															"title": "Edit Option",
+															"description": "The author has the option to edit or delete the saved text alternatives."
+				    										}
+													]
+											}
+									]
+								},
+								{
+									"ref_id" : "B.2.4",
+									"title" : "Assist authors with accessible templates.",
+									"rationale" : "Providing accessible templates (WCAG) can have several benefits, including: immediately improving the accessibility of the web content (WCAG) of being edited, reducing the effort required of authors, and demonstrating the importance of accessible web content (WCAG).",
+									"url_fragment" : "gl_b24",
+									"notes" : null,
+									"success_criteria" : 
+										[
+											{
+												"ref_id" : "B.2.4.1",
+												"title" : "Accessible Template Options (WCAG)",
+												"description" : "If the authoring tool provides templates, then there are accessible template (WCAG) options for a range of template uses.",
+												"level" : "A,AA,AAA",
+												"url_fragment" : "sc_b241",
+												"notes" : null,
+												"special_cases" : null
+											},
+											{
+												"ref_id" : "B.2.4.2",
+												"title" : "Identify Template Accessibility",
+												"description" : "If the authoring tool includes a template selection mechanism and provides any non-accessible template (WCAG) options, then the template selection mechanism can display distinctions between the accessible and non-accessible options.",
+												"level" : "AA",
+												"url_fragment" : "sc_b242",
+												"notes" : [{"content" : "The distinction can involve providing information for the accessible templates, the non-accessible templates or both."}],
+												"special_cases" : null
+											},
+											{
+												"ref_id" : "B.2.4.3",
+												"title" : "Author-Created Templates",
+												"description" : "If the authoring tool includes a template selection mechanism and allows authors to create new non-accessible templates (WCAG), then authors can enable the template selection mechanism to display distinctions between accessible and non-accessible templates that they create.",
+												"level" : "AA",
+												"url_fragment" : "sc_b243",
+												"notes" : [{"content" : "The distinction can involve providing information for the accessible templates (WCAG), the non-accessible templates or both."}],
+												"special_cases" : null
+											},
+											{
+												"ref_id" : "B.2.4.4",
+												"title" : "Accessible Template Options (Enhanced)",
+												"description" : "If the authoring tool provides templates, then all of the templates are accessible template (to WCAG Level AA)",
+												"level" : "AAA",
+												"url_fragment" : "sc_b244",
+												"notes" : null,
+												"special_cases" : null
+											}
+										]
+								},
+								{
+									"ref_id" : "B.2.5",
+									"title" : "Assist authors with accessible pre-authored content.",
+									"rationale" : "Providing accessible pre-authored content (WCAG) (e.g. clip art, synchronized media, widgets) can have several benefits, including: immediately improving the accessibility of web content (WCAG) being edited, reducing the effort required of authors, and demonstrating the importance of accessibility.",
+									"url_fragment" : "gl_b25",
+									"notes" : null,
+									"success_criteria" : 
+										[
+											{
+												"ref_id" : "B.2.5.1",
+												"title" : "Accessible Pre-Authored Content Options",
+												"description" : "If the authoring tool provides pre-authored content, then a range of accessible pre-authored content (to WCAG Level AA) options are provided.",
+												"level" : "AA",
+												"url_fragment" : "sc_b251",
+												"notes" : null,
+												"special_cases" : null
+											},
+											{
+												"ref_id" : "B.2.5.2",
+												"title" : "Identify Pre-Authored Content Accessibility",
+												"description" : "If the authoring tool includes a pre-authored content selection mechanism and provides any non-accessible pre-authored content (WCAG Level AA) options, then the selection mechanism can display distinctions between the accessible and non-accessible options.",
+												"level" : "AA",
+												"url_fragment" : "sc_b252",
+												"notes" : [{"content" : "The distinction can involve providing information for the accessible pre-authored content, the non-accessible pre-authored content or both."}],
+												"special_cases" : null
+											}
+										]
+								}
+							]
+					},
+					{
+						"ref_id" : "B.3",
+						"title" : "Authors are supported in improving the accessibility of existing content ",
+						"url_fragment" : "principle_b3",
+						"guidelines" : 
+							[
+								{
+									"ref_id" : "B.3.1",
+									"title" : "Assist authors in checking for accessibility problems.",
+									"rationale" : "When accessibility checking is an integrated function of the authoring tool, it helps make authors aware of web content accessibility problems (WCAG) during the authoring process, so they can be immediately addressed.",
+									"url_fragment" : "gl_b31",
+									"notes" : null,
+									"success_criteria" : 
+										[
+											{
+												"ref_id" : "B.3.1.1",
+												"title" : "Checking Assistance (WCAG)",
+												"description" : "If the authoring tool provides authors with the ability to add or modify web content in such a way that a WCAG 2.0 success criterion can be violated, then accessibility checking for that success criterion is provided (e.g. an HTML authoring tool that inserts images should check for alternative text; a video authoring tool with the ability to edit text tracks should check for captions).",
+												"level" : "A,AA,AAA",
+												"url_fragment" : "sc_b311",
+												"notes" : [{"content" : "Automated and semi-automated checking is possible (and encouraged) for many types of web content accessibility problems (WCAG). However, manual checking is the minimum requirement to meet this success criterion. In manual checking, the authoring tool provides authors with instructions for detecting problems, which authors carry out by themselves. For more information on checking, see Implementing ATAG 2.0 - Appendix B: Levels of Checking Automation."}],
+												"special_cases" : null
+											},
+											{
+												"ref_id" : "B.3.1.2",
+												"title" : "Help Authors Decide",
+												"description" : "If the authoring tool provides accessibility checking that relies on authors to decide whether potential web content accessibility problems (WCAG) are correctly identified (i.e. manual checking and semi-automated checking), then the accessibility checking process provides instructions that describe how to decide.",
+												"level" : "A",
+												"url_fragment" : "sc_b312",
+												"notes" : null,
+												"special_cases" : null
+											},
+											{
+												"ref_id" : "B.3.1.3",
+												"title" : "Help Authors Locate",
+												"description" : "If the authoring tool provides checks that require authors to decide whether a potential web content accessibility problem (WCAG) is correctly identified (i.e. manual checking and semi-automated checking), then the relevant content is identified to the authors.",
+												"level" : "A",
+												"url_fragment" : "sc_b313",
+												"notes" : [{"content" : "Depending on the nature of the editing-view and the scope of the potential web content accessibility problem (WCAG), identification might involve highlighting elements or renderings of elements, displaying line numbers, or providing instructions."}],
+												"special_cases" : null
+											},
+											{
+												"ref_id" : "B.3.1.4",
+												"title" : "Status Report",
+												"description" : "If the authoring tool provides checks, then authors can receive an accessibility status report based on the results of the accessibility checks.",
+												"level" : "AA",
+												"url_fragment" : "sc_b314",
+												"notes" : [{"content" : "The format of the accessibility status report is not specified and they might include a listing of problems detected or a WCAG 2.0 conformance level, etc."}],
+												"special_cases" : null
+											},
+											{
+												"ref_id" : "B.3.1.5",
+												"title" : "Programmatic Association of Results",
+												"description" : "If the authoring tool provides checks, then the authoring tool can programmatically associate accessibility checking results with the web content that was checked.",
+												"level" : "AA",
+												"url_fragment" : "sc_b315",
+												"notes" : null,
+												"special_cases" : null
+											}
+										]
+								},
+								{
+									"ref_id" : "B.3.2",
+									"title" : "Assist authors in repairing accessibility problems.",
+									"rationale" : "When repair is an integral part of the authoring process, it greatly enhances the utility of checking and increases the likelihood that web content accessibility problems (WCAG) will be properly addressed.",
+									"url_fragment" : "gl_b32",
+									"notes" : null,
+									"success_criteria" : 
+										[
+											{
+												"ref_id" : "B.3.2.1",
+												"title" : "Repair Assistance (WCAG)",
+												"description" : "If checking (see Success Criterion B.3.1.1) can detect that a WCAG 2.0 success criterion is not met, then repair suggestion(s) are provided",
+												"level" : "A,AA,AAA",
+												"url_fragment" : "sc_b321",
+												"notes" : [{"content" : "Automated and semi-automated repair is possible (and encouraged) for many types of web content accessibility problems (WCAG). However, manual repair is the minimum requirement to meet this success criterion. In manual repair, the authoring tool provides authors with instructions for repairing problems, which authors carry out by themselves. For more information on repair, see Implementing ATAG 2.0 - Appendix C: Levels of Repair Automation."}],
+												"special_cases" : null
+											}
+										]
+								}
+							]
+					},
+					{
+						"ref_id" : "B.4",
+						"title" : "Authoring tools promote and integrate their accessibility features",
+						"url_fragment" : "principle_b4",
+						"guidelines" : 
+							[
+								{
+									"ref_id" : "B.4.1",
+									"title" : "Ensure the availability of features that support the production of accessible content.",
+									"rationale" : "The accessible content support features will be more likely to be used, if they are turned on and are afforded reasonable prominence within the authoring tool user interface.",
+									"url_fragment" : "gl_b41",
+									"notes" : null,
+									"success_criteria" : 
+										[
+											{
+												"ref_id" : "B.4.1.1",
+												"title" : "Features Active by Default",
+												"description" : "All accessible content support features are turned on by default.",
+												"level" : "A",
+												"url_fragment" : "sc_b411",
+												"notes" : null,
+												"special_cases" : null
+											},
+											{
+												"ref_id" : "B.4.1.2",
+												"title" : "Option to Reactivate Features",
+												"description" : "The authoring tool does not include the option to turn off its accessible content support features or features which have been turned off can be turned back on.",
+												"level" : "A",
+												"url_fragment" : "sc_b412",
+												"notes" : null,
+												"special_cases" : null
+											},
+											{
+												"ref_id" : "B.4.1.3",
+												"title" : "Feature Deactivation Warning",
+												"description" : "The authoring tool does not include the option to turn off its accessible content support features or, if these features can be turned off, authors are informed that this may increase the risk of content accessibility problems (WCAG).",
+												"level" : "AA",
+												"url_fragment" : "sc_b413",
+												"notes" : null,
+												"special_cases" : null
+											},
+											{
+												"ref_id" : "B.4.1.4",
+												"title" : "Feature Prominence",
+												"description" : "All accessible content support features are at least as prominent as features related to either invalid markup, syntax errors, spelling errors or grammar errors.",
+												"level" : "AA",
+												"url_fragment" : "sc_b414",
+												"notes" : null,
+												"special_cases" : null
+											}
+
+
+										]
+								},
+								{
+									"ref_id" : "B.4.2",
+									"title" : "Ensure that documentation promotes the production of accessible content.",
+									"rationale" : "Some authors need support in determining how to use accessible content production features (e.g. how to respond to prompts for text alternatives, how to use accessibility checking tools). Demonstrating accessible authoring as routine practice, or at least not demonstrating inaccessible practices, will help to encourage acceptance of accessibility by some authors.",
+									"url_fragment" : "gl_b42",
+									"notes" : null,
+									"success_criteria" : 
+										[
+											{
+												"ref_id" : "B.4.2.1",
+												"title" : "Model Practice (WCAG)",
+												"description" : "A range of examples in the documentation (e.g. markup, screen shots of WYSIWYG editing-views) demonstrate accessible authoring practices (WCAG).",
+												"level" : "A,AA,AAA",
+												"url_fragment" : "sc_b421",
+												"notes" : null,
+												"special_cases" : null
+											},
+											{
+												"ref_id" : "B.4.2.2",
+												"title" : "Feature Instructions",
+												"description" : "Instructions for using any accessible content support features appear in the documentation.",
+												"level" : "A",
+												"url_fragment" : "sc_b422",
+												"notes" : null,
+												"special_cases" : null
+											},
+											{
+												"ref_id" : "B.4.2.3",
+												"title" : "Tutorial",
+												"description" : "The authoring tool provides a tutorial for an accessible authoring process that is specific to that authoring tool.",
+												"level" : "AAA",
+												"url_fragment" : "sc_b423",
+												"notes" : null,
+												"special_cases" : null
+											},
+											{
+												"ref_id" : "B.4.2.4",
+												"title" : "Instruction Index",
+												"description" : "The authoring tool documentation contains an index to the instructions for using any accessible content support features.",
+												"level" : "AAA",
+												"url_fragment" : "sc_b424",
+												"notes" : null,
+												"special_cases" : null
+											}
+										]
+								}
+						]
+
+					}
+				]
+		}
+	]
+}
