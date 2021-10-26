@@ -46,16 +46,16 @@ jobs:
       - name: List files in the repository
         run: |
           pwd
-          #DIR="./node_modules/atag-as-json/"
-          FILE="/node_modules/atag-as-json/atag.json"
+          DIR="./node_modules/atag-as-json/"
+          FILE="atag.json"
           ls -al $DIR
           #ls -al ./node_modules
           #ls -al ./node_modules/atag-as-json
-          if [[ -f $FILE ]]; then
-            echo "$FILE exists."
-            cp $FILE ./
+          if [[ -f $DIR$FILE ]]; then
+            echo "$DIR$FILE exists."
+            cp $DIR$FILE ./
           else 
-            echo "./node_modules/atag-as-json/atag.json does not exist."
+            echo "$DIR$FILE: (./node_modules/atag-as-json/atag.json) does not exist."
           fi
       - run: echo "🍏 This job's status is ${{ job.status }}."
           
