@@ -18,8 +18,6 @@ main {
 }
 #leftPanel {
 	grid-area: leftPanel;
-	position: sticky;
-	top: 0;
 	max-height: 100vh;
 	overflow-y: scroll;
 	padding: 6px;
@@ -128,6 +126,14 @@ a::after {
 		margin-right: 1em;
 		border-right: thin inset #C0C0C0;
 		border-bottom: thin inset #C0C0C0;
+	}
+	#leftPanel {
+		grid-area: leftPanel;
+		position: sticky;
+		top: 0;
+		max-height: 100vh;
+		overflow-y: scroll;
+		padding: 6px;
 	}
 	/*
 	#leftPanel > div {
