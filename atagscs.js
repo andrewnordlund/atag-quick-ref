@@ -2,6 +2,7 @@ let file = "atag.json"
 let atagContents = null;
 let dbug = !true;
 let cont = null;
+let toc = null;
 let parts = true;
 let principles = true;
 let guidelines = true;
@@ -39,10 +40,13 @@ let filters = {
 function init () {
 	if (dbug) console.log ("Initting");
 	cont = document.getElementById("cont");
+	toc = document.getElementById("toc");
 	liveRegion = document.getElementById("liveRegion");
-
+	let shownTab = 0;
+	let thisURL = new URL(document.location);
+	let params = thisURL.searchParams;
+	let hash = thisURL.hash;
 	
-	let params = (new URL(document.location)).searchParams;
 	let hide = null;
 	if (params.get("filters")) {
 		// Do stuff
@@ -58,7 +62,7 @@ function init () {
 			filters[id] = document.getElementById(id);
 			filters[id].addEventListener("change", toggleFilter, false);
 			if (hide) {
-				if (dbug) console.log (`Chould I hide ${id}?`);
+				if (dbug) console.log (`Should I hide ${id}?`);
 				if (id.replace("Chk", "").match(hide)) filters[id].checked = false;
 			}
 		}
@@ -66,14 +70,111 @@ function init () {
 			console.error ("Exception: " + ex.toString())
 		}
 	}
-	window.addEventListener("popstate", setFilters, false);
+	if (params.get("selectedTab")) {
+		// Do stuff
+		shownTab = 1;
+	}
+	setupTabs(shownTab);
+
+	window.addEventListener("popstate", interpretParams, false);
 	fetch (file).then(function (resp) {
 		if (dbug) console.log ("Got resp.");
 		resp.json().then (setATAG);
 	})
-
 	if (dbug) console.log ("Finished Initting");
 } // End of init
+
+function setupTabs(x) {
+	// Shamelessly taken from https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tab_role
+	const tabs = document.querySelectorAll('[role="tab"]');
+	const tabList = document.querySelector('[role="tablist"]');
+
+	// Add a click event handler to each tab
+	tabs.forEach(tab => {
+		tab.addEventListener("click", changeTabs);
+	});
+
+	// Enable arrow navigation between tabs in the tab list
+	let tabFocus = x;
+	if (tabFocus !=0) {
+		const evt = new Event("click", {"bubbles":true, "cancelable":false});
+		tabs[tabFocus].dispatchEvent(evt);
+	}
+
+	tabList.addEventListener("keydown", e => {
+	// Move right
+		if (e.keyCode === 39 || e.keyCode === 37) {
+			tabs[tabFocus].setAttribute("tabindex", -1);
+			if (e.keyCode === 39) {
+				tabFocus++;
+				// If we're at the end, go to the start
+				if (tabFocus >= tabs.length) tabFocus = 0;
+				// Move left
+			} else if (e.keyCode === 37) {
+				tabFocus--;
+				// If we're at the start, move to the end
+				if (tabFocus < 0) tabFocus = tabs.length - 1;
+			}
+
+			tabs[tabFocus].setAttribute("tabindex", 0);
+			tabs[tabFocus].focus();
+		}
+	});
+} // End of setupTabs
+
+function changeTabs(e) {
+	const target = e.target;
+	const parent = target.parentNode;
+	const grandparent = parent.parentNode;
+
+	// Remove all current selected tabs
+	parent.querySelectorAll('[aria-selected="true"]').forEach(t => t.setAttribute("aria-selected", false));
+
+	// Set this tab as selected
+	target.setAttribute("aria-selected", true);
+
+	// Hide all tab panels
+	grandparent.querySelectorAll('[role="tabpanel"]').forEach(p => p.classList.add("hide"));
+
+	// Show the selected panel
+	grandparent.parentNode.querySelector(`#${target.getAttribute("aria-controls")}`).classList.remove("hide");
+	setURL();
+} // End of changeTabs
+
+
+function setURL () {
+	let url = new URL(document.location);
+	let newURL = url.toString().replace(/#.*$/, "");
+	newURL = newURL.replace(/\?.*$/, "");
+	let selectedTab = (document.getElementById("filtersLink").getAttribute("aria-selected") == "true" ? "selectedTab=filters" : "");
+	let params = [];
+	for (let id in filters) {
+		if (!filters[id].checked) {
+			params.push(id.replace("Chk", ""));
+			if (id.match(/levelA/)) {
+				params[params.length-1] += "$";
+			}
+		}
+	}
+	
+	if (params.length > 0) {
+		newURL += "?filters=" + params.join(sep) + (selectedTab != "" ? "&" + selectedTab : "") + url.hash;
+	} else {
+		newURL += (selectedTab != "" ? "?" + selectedTab : "") + url.hash;
+	}
+	history.pushState({}, document.title, newURL);
+
+
+} // End of setURL
+
+
+function setTab (name) {
+
+} // End of setTab
+
+function interpretParams () {
+	setFilters();
+} // End of interpretParams
 
 function setFilters () {
 	if (dbug) console.log ("popstate event with url: " + document.location.href);
@@ -139,7 +240,18 @@ function setFilters () {
 function setATAG (atag) {
 	atagContents = atag;
 	genHTML();
-} // End of set ATAG
+	
+	let thisURL = new URL(document.location);
+	let hash = thisURL.hash;
+
+	if (hash != "") {
+		let targetElement = document.getElementById(hash.replace(/^#/, ""));
+		if (!targetElement.hasAttribute("tabindex")) targetElement.setAttribute("tabindex", "-1");
+		if (dbug) console.log ("Setting focus.");
+		targetElement.focus();
+	}
+
+} // End of set setATAG
 
 function toggleFilter (e) {
 	let chkID = e.target.getAttribute("id");
@@ -204,6 +316,7 @@ function toggleFilter (e) {
 		msg.push(document.querySelector("label[for=successCriterionChk]").textContent);
 	}
 
+	/*
 	let url = new URL(document.location);
 	let newURL = url.toString().replace(/#.*$/, "");
 	newURL = newURL.replace(/\?.*$/, "");
@@ -222,6 +335,8 @@ function toggleFilter (e) {
 		newURL += url.hash
 	}
 	history.pushState({}, document.title, newURL);
+	*/
+	setURL();
 		
 	genHTML();
 	if (msg.length > 1) msg[msg.length-1] = "and " + msg[msg.length-1];
@@ -231,48 +346,66 @@ function toggleFilter (e) {
 function genHTML () {
 	if (dbug) console.log ("Regening...");
 	cont.innerHTML = "";
+	toc.innerHTML = "";
 	hl = initHl;
 	refURL = atagContents["base_url"];
 	implementURL = atagContents["implementation_base_url"];
 	for (let part in atagContents.parts) {
-		if (parts && filters["part" + atagContents.parts[part]["ref_id"] + "Chk"].checked) createPart(atagContents.parts[part], cont);
+		if (parts && filters["part" + atagContents.parts[part]["ref_id"] + "Chk"].checked) {
+			createPart(atagContents.parts[part], cont, toc);
+		}
 	}
 } // End of genHTML
-function createPart (atagPart, pNode) {
+function createPart (atagPart, pNode, tocpNode) {
 	let partSect = pNode;
-	if (filters["partChk"].checked) partSect  = createHTMLElement(document, "section", {"parentNode":pNode,"class":"partSect", "id":atagPart["url_fragment"]});
+	let partOL = tocpNode;
+	let partLI = createHTMLElement(document, "li", {"parentNode":partOL});
+
+	if (filters["partChk"].checked) {
+		partSect = createHTMLElement(document, "section", {"parentNode":pNode,"class":"partSect", "id":atagPart["url_fragment"]});
+		createHTMLElement(document, "a", {"parentNode": partLI, "href" : "#" + atagPart["url_fragment"], "textNode" : atagPart["ref_id"] + " - " + atagPart["title"]});
+	}
 	if (!filters["infoLinkChk"].checked && !filters["implementingLinkChk"].checked && filters["partChk"].checked && !filters["guidelineChk"].checked && !filters["successCriterionChk"].checked && !filters["principleChk"].checked) {
-		createHTMLElement(document, "p", {"parentNode":partSect, "class":"part bold", "textNode":"Part " + atagPart["ref_id"] + " - " + atagPart["title"]});
+		createHTMLElement(document, "p", {"parentNode":partSect, "id" : "", "class":"part bold", "textNode":"Part " + atagPart["ref_id"] + " - " + atagPart["title"]});
 	} else {
 		if (filters["partChk"].checked) {
 			createHTMLElement(document, "h" + hl, {"parentNode":partSect, "class":"part", "textNode":"Part " + atagPart["ref_id"] + " - " + atagPart["title"]});
 			if (filters["infoLinkChk"].checked || filters["implementingLinkChk"].checked) createLinks(partSect, atagPart["url_fragment"]);
 			if (filters["implementingLinkChk"].checked) implementingURL = createHTMLElement (document, "a", {"parentNode":partSect, "href":implementURL + "#" + atagPart["url_fragment"], "textNode":"Implementing " + atagPart["ref_id"], "class":"implementingLink", "target":"_blank", "rel":"noopener noreferrer"});
 			if (filters["infoLinkChk"].checked) createHTMLElement(document, "a", {"parentNode":partSect, "href":refURL + "#" + atagPart["url_fragment"], "textNode":refURL+"#"+atagPart["url_fragment"], "class":"infoLink", "target":"_blank", "rel":"noopener noreferrer"});
+			partOL = createHTMLElement(document, "ol", {"parentNode":partLI});
 			hl++;
 		}
+
 		for (let p in atagPart["principles"]) {
-			createPrinciple(atagPart["principles"][p], partSect);
+			createPrinciple(atagPart["principles"][p], partSect, partOL);
 		}
 		if (filters["partChk"].checked) hl--;
 	}
 } // End of createPart
 
 
-function createPrinciple (atagPrinciple, pNode) {
+function createPrinciple (atagPrinciple, pNode, tocpNode) {
 	let principleSect = pNode;
 	let gls = false;
-	if (filters["principleChk"].checked) principleSect  = createHTMLElement(document, "section", {"parentNode":pNode, "class":"prinicpleSect", "id":atagPrinciple["url_fragment"]});
+	let principleOL = tocpNode;
+	let principleLI = createHTMLElement(document, "li", {"parentNode":principleOL});
+	if (filters["principleChk"].checked) {
+		principleSect  = createHTMLElement(document, "section", {"parentNode":pNode, "class":"prinicpleSect", "id":atagPrinciple["url_fragment"]});
+		createHTMLElement(document, "a", {"parentNode": principleLI, "href" : "#" + atagPrinciple["url_fragment"], "textNode" : atagPrinciple["ref_id"] + " - " + atagPrinciple["title"]});
+
+	}
 	if (!filters["infoLinkChk"].checked && !filters["implementingLinkChk"].checked && !filters["guidelineChk"].checked && !filters["successCriterionChk"].checked&& filters["principleChk"].checked) {
 		createHTMLElement(document, "p", {"parentNode":principleSect, "class":"principle bold", "textNode":"Principle " + atagPrinciple["ref_id"] + " - " + atagPrinciple["title"]});
 	} else {
 		if (filters["principleChk"].checked) {
 			createHTMLElement(document, "h" + hl, {"parentNode":principleSect, "class":"principle", "textNode":"Principle " + atagPrinciple["ref_id"] + " - " + atagPrinciple["title"]});
 			if (filters["infoLinkChk"].checked || filters["implementingLinkChk"].checked) createLinks(principleSect, atagPrinciple["url_fragment"]);
+			principleOL = createHTMLElement(document, "ol", {"parentNode":principleLI});
 			hl++;
 		}
 		for (let gl in atagPrinciple["guidelines"]) {
-			let scs = createGuideline(atagPrinciple["guidelines"][gl], principleSect);
+			let scs = createGuideline(atagPrinciple["guidelines"][gl], principleSect, principleOL);
 			if (!gls && scs) gls = true;
 		}
 		if (filters["principleChk"].checked) hl--;
@@ -285,10 +418,16 @@ function createPrinciple (atagPrinciple, pNode) {
 
 } // End of createPrinciple
 
-function createGuideline (atagGuideline, pNode) {
+function createGuideline (atagGuideline, pNode, tocpNode) {
 	let guidelineSect  = pNode;
 	let scs = false;
-	if (filters["guidelineChk"].checked) guidelineSect = createHTMLElement(document, "section", {"parentNode":pNode,"class":"guidelineSect", "id":atagGuideline["url_fragment"]});
+	let guidelineOL = tocpNode;
+	let guidelineLI = createHTMLElement(document, "li", {"parentNode":guidelineOL});
+	if (filters["guidelineChk"].checked) {
+		guidelineSect = createHTMLElement(document, "section", {"parentNode":pNode,"class":"guidelineSect", "id":atagGuideline["url_fragment"]});
+		createHTMLElement(document, "a", {"parentNode": guidelineLI, "href" : "#" + atagGuideline["url_fragment"], "textNode" : atagGuideline["ref_id"] + " - " + atagGuideline["title"]});
+
+	}
 	if (!filters["infoLinkChk"].checked && !filters["implementingLinkChk"].checked && !filters["rationaleChk"].checked && !filters["successCriterionChk"].checked && filters["guidelineChk"].checked && (!filters["glnotesChk"].checked || (filters["glnotesChk"].checked && !atagGuideline["notes"]))) {
 		createHTMLElement(document, "p", {"parentNode":guidelineSect, "class":"guideline bold", "textNode":"Guideline " + atagGuideline["ref_id"] + " - " + atagGuideline["title"]});
 	} else {
@@ -306,16 +445,17 @@ function createGuideline (atagGuideline, pNode) {
 				}
 				hl--;
 			}
+			guidelineOL = createHTMLElement(document, "ol", {"parentNode":guidelineLI});
 			hl++;
 		}
 		for (let sc in atagGuideline["success_criteria"]) {
 			if (filters["levelAChk"].checked || filters["levelAAChk"].checked || filters["levelAAAChk"].checked) {
 				if (atagGuideline["success_criteria"][sc]["level"] == "A,AA,AAA") {
 					if (!scs) scs = true;
-					createSuccessCriterion(atagGuideline["success_criteria"][sc], guidelineSect);
+					createSuccessCriterion(atagGuideline["success_criteria"][sc], guidelineSect, guidelineOL);
 				} else if (filters["level" + atagGuideline["success_criteria"][sc]["level"] + "Chk"].checked) {
 					if (!scs) scs = true;
-					createSuccessCriterion(atagGuideline["success_criteria"][sc], guidelineSect);
+					createSuccessCriterion(atagGuideline["success_criteria"][sc], guidelineSect, guidelineOL);
 				}
 			}
 		}
@@ -330,10 +470,13 @@ function createGuideline (atagGuideline, pNode) {
 	}
 } // End of createGuideline
 
-function createSuccessCriterion (atagSuccessCriterion, pNode) {
+function createSuccessCriterion (atagSuccessCriterion, pNode, tocpNode) {
 	let successCriterionSect = pNode;	// This may not be necessary here.  But I'm keeping it as per the pattern.
+	let scOL = tocpNode;
+	let scLI = createHTMLElement(document, "li", {"parentNode":scOL});
 	if (filters["successCriterionChk"].checked) {
 		successCriterionSect  = createHTMLElement(document, "section", {"parentNode":pNode, "class":"scSect", "id":atagSuccessCriterion["url_fragment"]});
+		createHTMLElement(document, "a", {"parentNode": scLI, "href" : "#" + atagSuccessCriterion["url_fragment"], "textNode" : atagSuccessCriterion["ref_id"] + " - " + atagSuccessCriterion["title"]});
 		if (!filters["infoLinkChk"].checked && !filters["implementingLinkChk"].checked && (!filters["scnotesChk"].checked || !atagSuccessCriterion["notes"]) && !filters["descriptionChk"].checked && !filters["levelChk"].checked) {
 			let successCriterionH = createHTMLElement(document, "p", {"parentNode":successCriterionSect, "class":"successCriterion bold", "textNode":"Success Criterion " + atagSuccessCriterion["ref_id"] + " - " + atagSuccessCriterion["title"]});
 		} else {

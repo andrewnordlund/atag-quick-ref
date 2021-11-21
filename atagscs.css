@@ -12,16 +12,20 @@ header {
 main {
 	display: grid;
 	grid-template-areas: 
-		"filters"
+		"leftPanel"
 		"content";
-  width: 100%;
+	width: 100%;
 }
-#filters {
-	grid-area: filters;
+#leftPanel {
+	grid-area: leftPanel;
+	position: sticky;
+	top: 0;
+	max-height: 100vh;
+	overflow-y: scroll;
+	padding: 6px;
 }
 #contSection {
 	grid-area: content;
-	width: 100%;
 }
 h2, h3, h4, h5, h6 {
 	font-size: larger;
@@ -58,6 +62,53 @@ footer {
 	margin-top: 1.5em;
 	font-size: 85%;
 }
+#toc {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+#toc ol {
+	list-style: none;
+	padding: 0.4em 0;
+	margin-left: 1.2em;
+}
+#toc li {
+	line-height: 1.5em;
+}
+
+#tablist {
+	margin-bottom: -3px;
+}
+
+button[role=tab] {
+	display: inline;
+	padding: 0.3em 0.3em 0 0.3em;
+	margin-bottom: 0;
+	border-top: thin solid #101010;
+	border-left: thin solid #101010;
+	border-right: thin solid #101010;
+	border-bottom: none;
+}
+button[aria-selected=true] {
+	z-index: 1;
+	background-color: #FFFFFF;
+	padding-bottom: 1px !important;
+	
+}
+button[aria-selected=false] {
+	z-index: 3;
+	background-color: #E0E0E0;
+	padding-bottom: 1px !important;
+}
+#panelsPanel {
+	background-color: white;
+	z-index: 2;
+	margin-top:0.5px;
+	border-top: thin solid #101010;
+}
+
+
+
 /*
    This is from a font that I evidently don't have: font-awesome
 a::after {
@@ -68,7 +119,7 @@ a::after {
 	main {
 		display: grid;
 		grid-template-columns: 1fr 4fr;
-		grid-template-areas: "filters content";
+		grid-template-areas: "leftPanel content";
 	}
 	section {
 		margin-left: 2em;
@@ -78,10 +129,13 @@ a::after {
 		border-right: thin inset #C0C0C0;
 		border-bottom: thin inset #C0C0C0;
 	}
-	#filters > div {
+	/*
+	#leftPanel > div {
 		position: sticky;
 		top: 1em;
 		height: 30em;
 		overflow-y:scroll;
 	}
+	*/
+	
 }
