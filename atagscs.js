@@ -15,7 +15,9 @@ let showURL = true;
 let refURL = null;
 let implementURL = null;
 let liveRegion = null;
+let showHideBtn = null;
 let sep="|";
+let leftPanel = null;
 
 let filters = {
 	"partChk" : null,
@@ -42,12 +44,19 @@ function init () {
 	cont = document.getElementById("cont");
 	toc = document.getElementById("toc");
 	liveRegion = document.getElementById("liveRegion");
+	showHideBtn = document.getElementById("showHideBtn");
+	leftPanel = document.getElementById("leftPanel");
+	
+
 	let shownTab = 0;
 	let thisURL = new URL(document.location);
 	let params = thisURL.searchParams;
 	let hash = thisURL.hash;
-	
 	let hide = null;
+	if (params.get("dbug")) {
+		if (params.get("dbug") == "true") dbug= true;
+	}
+
 	if (params.get("filters")) {
 		// Do stuff
 		hide = params.get("filters");
@@ -76,6 +85,8 @@ function init () {
 	}
 	setupTabs(shownTab);
 
+	showHideBtn.addEventListener("click", toggleLeftPanel, false);
+
 	window.addEventListener("popstate", interpretParams, false);
 	fetch (file).then(function (resp) {
 		if (dbug) console.log ("Got resp.");
@@ -83,6 +94,20 @@ function init () {
 	})
 	if (dbug) console.log ("Finished Initting");
 } // End of init
+
+function toggleLeftPanel () {
+	if (showHideBtn.getAttribute("aria-expanded") == "true") {
+		// Hide it
+		showHideBtn.setAttribute("aria-expanded", "false");
+		showHideBtn.innerHTML = showHideBtn.innerHTML.replace("Hide", "Show");
+		leftPanel.classList.add("hide");
+	} else {
+		// Show it
+		showHideBtn.setAttribute("aria-expanded", "true");
+		showHideBtn.innerHTML = showHideBtn.innerHTML.replace("Show", "Hide");
+		leftPanel.classList.remove("hide");
+	}
+} // End of toggleLeftPanel
 
 function setupTabs(x) {
 	// Shamelessly taken from https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tab_role
@@ -245,10 +270,15 @@ function setATAG (atag) {
 	let hash = thisURL.hash;
 
 	if (hash != "") {
-		let targetElement = document.getElementById(hash.replace(/^#/, ""));
-		if (!targetElement.hasAttribute("tabindex")) targetElement.setAttribute("tabindex", "-1");
-		if (dbug) console.log ("Setting focus.");
-		targetElement.focus();
+		try {
+			let targetElement = document.getElementById(hash.replace(/^#/, ""));
+			if (!targetElement.hasAttribute("tabindex")) targetElement.setAttribute("tabindex", "-1");
+			if (dbug) console.log ("Setting focus.");
+			targetElement.focus();
+		}
+		catch (ex) {
+			console.error("Exception: " + ex.toString());
+		}
 	}
 
 } // End of set setATAG

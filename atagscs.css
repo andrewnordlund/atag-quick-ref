@@ -11,10 +11,15 @@ header {
 }
 main {
 	display: grid;
-	grid-template-areas: 
+	grid-template-areas:
+		"showHideButtons"
 		"leftPanel"
 		"content";
 	width: 100%;
+}
+#showHideButtons {
+	grid-area: showHideButtons;
+	display: block;
 }
 #leftPanel {
 	grid-area: leftPanel;
@@ -22,6 +27,19 @@ main {
 	overflow-y: scroll;
 	padding: 6px;
 }
+.hidePanel {
+	height: 0%;
+	overflow: hidden;
+	transition-property: height;
+	transition-duration: 4s;
+	transition-delay: 2s;
+}
+#showHideButtons {
+	width: 90%;
+	overflow-y: visible !important;
+}
+
+
 #contSection {
 	grid-area: content;
 }
@@ -68,7 +86,7 @@ footer {
 #toc ol {
 	list-style: none;
 	padding: 0.4em 0;
-	margin-left: 1.2em;
+	margin-left: 5%;
 }
 #toc li {
 	line-height: 1.5em;
@@ -102,10 +120,10 @@ button[aria-selected=false] {
 	background-color: white;
 	z-index: 2;
 	margin-top:0.5px;
-	border-top: thin solid #101010;
+	border: thin solid #101010;
+	overflow-y: scroll;
+	max-height: 90vh;
 }
-
-
 
 /*
    This is from a font that I evidently don't have: font-awesome
@@ -119,7 +137,11 @@ a::after {
 		grid-template-columns: 1fr 4fr;
 		grid-template-areas: "leftPanel content";
 	}
-	section {
+	#showHideButtons {
+		display: none;
+	}
+
+	#contSection section {
 		margin-left: 2em;
 		margin-top: 1em;
 		margin-bottom: 1.13em;
@@ -134,7 +156,15 @@ a::after {
 		max-height: 100vh;
 		overflow-y: scroll;
 		padding: 6px;
+		display: block;
 	}
+	
+	#panelsPanel {
+		border: none;
+		border-top: thin solid #101010;
+		overflow: visible;
+	}
+	
 	/*
 	#leftPanel > div {
 		position: sticky;
