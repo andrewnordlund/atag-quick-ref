@@ -58,6 +58,7 @@ p {
 	list-style:none;
 }
 .infoLink, .implementingLink {
+display: block;
 }
 .hide {
 	display: none;
