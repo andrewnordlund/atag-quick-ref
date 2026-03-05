@@ -47,7 +47,7 @@ jobs:
           switches: -rlpcgoDv --delete
           path: dist/
           remote_path: ${{ env.REMOTE_PATH }}
-          remote_host: ${{ vars.SSH_HOSTNAME }}
+          remote_host: ${{ vars.SSH_HOST }}
           remote_port: ${{ vars.SSH_PORT }} 
           remote_user: ${{ vars.SSH_USERNAME }}
           remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
