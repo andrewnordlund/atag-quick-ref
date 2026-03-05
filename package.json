@@ -4,8 +4,8 @@
   "description": "This is meant to mimic the WCAG Quick Reference, except for ATAG.",
   "main": "atagscs.js",
   "scripts": {
-    "build": "./scripts/build.sh",
-    "deploy": "./scripts/deploy.sh"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "echo \"Trying to build....not sure what to do here...Will this work?\""
   },
   "repository": {
     "type": "git",
@@ -22,5 +22,9 @@
   "homepage": "https://github.com/andrewnordlund/atag-quick-ref#readme",
   "dependencies": {
     "atag-as-json": "^0.2.1"
+  },
+  "scripts" : {
+	  "build" : "./scripts/build.sh",
+	  "deploy" : "./scripts/deploy.sh"
   }
 }
