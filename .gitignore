@@ -70,3 +70,7 @@ vendor
 # local Jekyll files
 _site
 .jekyll-metadata
+
+dist/*
+
+build/*
