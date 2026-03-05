@@ -1,0 +1,178 @@
+
+fieldset {
+  border: none;
+}
+legend {
+	font-weight:bold;
+}
+header {
+
+	width: 100%;
+}
+main {
+	display: grid;
+	grid-template-areas:
+		"showHideButtons"
+		"leftPanel"
+		"content";
+	width: 100%;
+}
+#showHideButtons {
+	grid-area: showHideButtons;
+	display: block;
+}
+#leftPanel {
+	grid-area: leftPanel;
+	max-height: 100vh;
+	overflow-y: scroll;
+	padding: 6px;
+}
+.hidePanel {
+	height: 0%;
+	overflow: hidden;
+	transition-property: height;
+	transition-duration: 4s;
+	transition-delay: 2s;
+}
+#showHideButtons {
+	width: 90%;
+	overflow-y: visible !important;
+}
+
+
+#contSection {
+	grid-area: content;
+}
+h2, h3, h4, h5, h6 {
+	font-size: larger;
+	margin: 0.5em auto;
+}
+ol {
+	margin: 0 auto 0.75em auto;
+}
+p {
+	margin-bottom: 0.3em;
+}
+.linkUL li {
+	margin-bottom: 0.5em;
+	list-style:none;
+}
+.infoLink, .implementingLink {
+	display: inline-block;
+}
+.hide {
+	display: none;
+}
+.bold {
+	font-weight: 700;
+}
+.sr-only {
+    clip: rect(1px,1px,1px,1px);
+    height: 1px;
+    margin: 0;
+    overflow: hidden;
+    position: absolute;
+    width: 1px;
+}
+footer {
+	border-top: thin #808080 solid;
+	margin-top: 1.5em;
+	font-size: 85%;
+}
+#toc {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+#toc ol {
+	list-style: none;
+	padding: 0.4em 0;
+	margin-left: 5%;
+}
+#toc li {
+	line-height: 1.5em;
+}
+
+#tablist {
+	margin-bottom: -3px;
+}
+
+button[role=tab] {
+	display: inline;
+	padding: 0.3em 0.3em 0 0.3em;
+	margin-bottom: 0;
+	border-top: thin solid #101010;
+	border-left: thin solid #101010;
+	border-right: thin solid #101010;
+	border-bottom: none;
+}
+button[aria-selected=true] {
+	z-index: 1;
+	background-color: #FFFFFF;
+	padding-bottom: 1px !important;
+	
+}
+button[aria-selected=false] {
+	z-index: 3;
+	background-color: #E0E0E0;
+	padding-bottom: 1px !important;
+}
+#panelsPanel {
+	background-color: white;
+	z-index: 2;
+	margin-top:0.5px;
+	border: thin solid #101010;
+	overflow-y: scroll;
+	max-height: 90vh;
+}
+
+/*
+   This is from a font that I evidently don't have: font-awesome
+a::after {
+	content: "\f360";
+}
+*/
+@media (min-width: 800px) {
+	main {
+		display: grid;
+		grid-template-columns: 1fr 4fr;
+		grid-template-areas: "leftPanel content";
+	}
+	#showHideButtons {
+		display: none;
+	}
+
+	#contSection section {
+		margin-left: 2em;
+		margin-top: 1em;
+		margin-bottom: 1.13em;
+		margin-right: 1em;
+		border-right: thin inset #C0C0C0;
+		border-bottom: thin inset #C0C0C0;
+	}
+	#leftPanel {
+		grid-area: leftPanel;
+		position: sticky;
+		top: 0;
+		max-height: 100vh;
+		overflow-y: scroll;
+		padding: 6px;
+		display: block;
+	}
+	
+	#panelsPanel {
+		border: none;
+		border-top: thin solid #101010;
+		overflow: visible;
+	}
+	
+	/*
+	#leftPanel > div {
+		position: sticky;
+		top: 1em;
+		height: 30em;
+		overflow-y:scroll;
+	}
+	*/
+	
+}
