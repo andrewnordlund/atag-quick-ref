@@ -22,5 +22,9 @@
   "homepage": "https://github.com/andrewnordlund/atag-quick-ref#readme",
   "dependencies": {
     "atag-as-json": "^0.2.1"
+  },
+  "scripts" : {
+	  "biuld" : "./scripts/build.sh",
+	  "deploy" : "./scripts/deploy.sh"
   }
 }

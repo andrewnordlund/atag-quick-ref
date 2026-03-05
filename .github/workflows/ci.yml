@@ -4,12 +4,9 @@ name: CI
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-    
+    branches: [main,dev]
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -24,46 +21,40 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       # Details can be seen here: https://github.com/actions/checkout
-      - uses: actions/checkout@v2
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-        
-     # - uses: actions/setup-node@v2
-     #   with:
-     #     node-version: '14'
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Checkout Step
+        uses: actions/checkout@v4
+      
+      - name: Copy files to dist
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
-          npm ci
-          echo Add another line.
-          echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-          echo "🖥️ The workflow is now ready to test your code on the runner in github_workspace: ${{ github.workspace }}."
-      - name: List files in the repository
+          scripts/build.sh
+      - name: Set remote path
+        id: set_path
         run: |
-          pwd
-          DIR="./node_modules/atag-as-json/"
-          FILE="atag.json"
-          ls -al $DIR
-          #ls -al ./node_modules
-          #ls -al ./node_modules/atag-as-json
-          if [[ -f $DIR$FILE ]]; then
-            echo "$DIR$FILE exists."
-            cp $DIR$FILE ./
-          else 
-            echo "$DIR$FILE: (./node_modules/atag-as-json/atag.json) does not exist."
+          echo "Current branch is: ${{ github.ref_name }}"
+         
+          if [ "${{ github.ref_name }}" = "main" ]; then
+            REMOTE_PATH=${{ vars.REMOTE_PATH_PROD }}
+          else
+            REMOTE_PATH=${{ vars.REMOTE_PATH_DEV }}
           fi
-      - run: echo "🍏 This job's status is ${{ job.status }}."
-          
-           
+
+          echo "REMOTE_PATH=$REMOTE_PATH" >> $GITHUB_ENV
+          echo "Remote path: $REMOTE_PATH"
+ 
+      - name: Deploy using Rsync
+        uses: burnett01/rsync-deployments@6.0.0
+        with:
+          switches: -rlpcgoDv --delete
+          path: dist/
+          remote_path: ${{ env.REMOTE_PATH }}
+          remote_host: ${{ vars.SSH_HOSTNAME }}
+          remote_port: ${{ vars.SSH_PORT }} 
+          remote_user: ${{ vars.SSH_USERNAME }}
+          remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref_name == 'main' }}
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./
-          publish_branch: prod  # default: gh-pages
-    
+          publish_dir: ./dist
+          publish_branch: prod
